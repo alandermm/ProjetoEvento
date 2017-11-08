@@ -20,5 +20,9 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
             this.Artista = Artista;
             this.GeneroMusical = GeneroMusical;
         }
+
+        public override bool Cadastrar(){
+            return false;
+        }
     }
 }
