@@ -10,8 +10,15 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
 
         }
 
-        public Show(string Titulo, string Local, int Lotacao, string Duracao, int Classificacao, DateTime Data, string Artista, string Genero){
-
+        public Show(string Titulo, string Local, int Lotacao, string Duracao, int Classificacao, DateTime Data, string Artista, string GeneroMusical){
+            base.Titulo = Titulo;
+            base.Local = Local;
+            base.Lotacao = Lotacao;
+            base.Duracao = Duracao;
+            base.Classificacao = Classificacao;
+            base.Data = Data;
+            this.Artista = Artista;
+            this.GeneroMusical = GeneroMusical;
         }
     }
 }
