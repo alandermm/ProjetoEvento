@@ -69,5 +69,26 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
             }
             return resultado;
         }
+
+        public override string Pesquisar(DateTime Data){
+            string resultado = "Título não encontrado";
+            StreamReader ler = null;
+            try{
+                ler = new StreamReader("show.csv", Encoding.Default);
+                string linha = "";
+                while((linha=ler.ReadLine()) != null){
+                    string[] dados = linha.Split(';');
+                    if(DateTime.Parse(dados[3]) == Data){
+                        resultado = linha;
+                        break;
+                    }
+                }
+            } catch (Exception ex) {
+                resultado = "Erro ao tentar ler o arquivo. " + ex.Message;
+            } finally {
+                ler.Close();
+            }
+            return resultado;
+        }
     }
 }
