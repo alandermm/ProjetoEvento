@@ -1,43 +1,49 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Collections.Generic;
 using System.Text;
 
 namespace ProjetoEvento.ClassePai.ClassesFilhas
 {
-    public class Show : Evento
+    public class Teatro : Evento
     {
-        public string Artista {get; set;}
-        public string GeneroMusical {get; set;}
+        public string[] Elenco {get; set;}
+        public string Diretor {get; set;}
 
-        public Show(){
+        public Teatro(){
 
         }
 
-        public Show(string Titulo, string Local, int Lotacao, string Duracao, int Classificacao, DateTime Data, string Artista, string GeneroMusical){
+        public Teatro(string Titulo, string Local, int Lotacao, string Duracao, int Classificacao, DateTime Data, string[] Elenco, string Diretor){
             base.Titulo = Titulo;
             base.Local = Local;
             base.Lotacao = Lotacao;
             base.Duracao = Duracao;
             base.Classificacao = Classificacao;
             base.Data = Data;
-            this.Artista = Artista;
-            this.GeneroMusical = GeneroMusical;
+            this.Elenco = Elenco;
+            this.Diretor = Diretor;
         }
 
         public override bool Cadastrar(){
             bool efetuado = false;
             StreamWriter arquivo = null;
-
+            string elenco = "";
+            foreach (var integrante in Elenco)
+            {
+                elenco += integrante + "-";
+            }
+            elenco.Substring(0, Elenco.Length-1);
             try{
-                arquivo = new StreamWriter("show.csv", true);
+                arquivo = new StreamWriter("teatro.csv", true);
                 arquivo.WriteLine(
                     this.Titulo+";"+
                     this.Local+";"+
                     this.Duracao+";"+
                     this.Data+";"+
-                    this.Artista+";"+
-                    this.GeneroMusical+";"+
+                    elenco+";"+
+                    this.Elenco+";"+
+                    this.Diretor+";"+
                     this.Lotacao+";"+
                     this.Classificacao
                 );
@@ -54,7 +60,7 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
             string resultado = "Título não encontrado";
             StreamReader ler = null;
             try{
-                ler = new StreamReader("show.csv", Encoding.Default);
+                ler = new StreamReader("teatro.csv", Encoding.Default);
                 string linha = "";
                 while((linha=ler.ReadLine()) != null){
                     string[] dados = linha.Split(';');
@@ -73,9 +79,10 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
 
         public override List<string> Pesquisar(DateTime Data){
             List<string> resultado = new List<string>();
+            //resultado.Add("Não tem nenhum evento para esta data");
             StreamReader ler = null;
             try{
-                ler = new StreamReader("show.csv", Encoding.Default);
+                ler = new StreamReader("teatro.csv", Encoding.Default);
                 string linha = "";
                 while((linha = ler.ReadLine()) != null){
                     string[] dados = linha.Split(';');
@@ -85,6 +92,34 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
                 }
                 if (resultado.Count == 0){
                     resultado.Add("Não tem nenhum evento para esta data");
+                }
+            } catch (Exception ex) {
+                resultado.Add("Erro ao tentar ler o arquivo. " + ex.Message);
+            } finally {
+                ler.Close();
+            }
+            return resultado;
+        }
+
+        public List<string> PesquisarIntegrante(string Integrante){
+            //string resultado = "Elenco não encontrado";
+            List<string> resultado = new List<string>();
+            StreamReader ler = null;
+            try{
+                ler = new StreamReader("teatro.csv", Encoding.Default);
+                string linha = "";
+                while((linha=ler.ReadLine()) != null){
+                    string[] dados = linha.Split(';');
+                    string[] elenco = dados[4].Split('-');
+                    foreach(string integ in elenco){
+                        if(integ == Integrante){
+                            resultado.Add(linha);
+                            break;
+                        }
+                    }
+                }
+                if (resultado.Count == 0){
+                    resultado.Add("Não encontramos nenhum evento com o integrante informado.");
                 }
             } catch (Exception ex) {
                 resultado.Add("Erro ao tentar ler o arquivo. " + ex.Message);
