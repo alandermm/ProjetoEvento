@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 namespace ProjetoEvento.ClassePai.ClassesFilhas
 {
     public class Show : Evento
@@ -22,7 +23,28 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
         }
 
         public override bool Cadastrar(){
-            return false;
+            bool efetuado = false;
+            StreamWriter arquivo = null;
+
+            try{
+                arquivo = new StreamWriter("show.csv", true);
+                arquivo.WriteLine(
+                    this.Titulo+";"+
+                    this.Local+";"+
+                    this.Duracao+";"+
+                    this.Data+";"+
+                    this.Artista+";"+
+                    this.GeneroMusical+";"+
+                    this.Lotacao+";"+
+                    this.Classificacao
+                );
+                efetuado =true;
+            } catch(Exception ex) {
+                throw new Exception("Erro ao tentar gravar o arquivo " + ex.Message);
+            } finally {
+                arquivo.Close();
+            }
+            return efetuado;
         }
     }
 }
