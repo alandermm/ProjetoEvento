@@ -34,12 +34,14 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
                 arquivo.WriteLine(
                     this.Titulo+";"+
                     this.Local+";"+
+                    this.Lotacao+";"+
                     this.Duracao+";"+
+                    this.Classificacao+";"+
                     this.Data+";"+
                     this.Artista+";"+
-                    this.GeneroMusical+";"+
-                    this.Lotacao+";"+
-                    this.Classificacao
+                    this.GeneroMusical
+                    
+                    
                 );
                 efetuado =true;
             } catch(Exception ex) {
@@ -58,7 +60,7 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
                 string linha = "";
                 while((linha=ler.ReadLine()) != null){
                     string[] dados = linha.Split(';');
-                    if(dados[0] == Titulo){
+                    if(dados[0].ToUpper() == Titulo.ToUpper()){
                         resultado = linha;
                         break;
                     }
@@ -79,7 +81,7 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
                 string linha = "";
                 while((linha = ler.ReadLine()) != null){
                     string[] dados = linha.Split(';');
-                    if(DateTime.Parse(dados[3]) == Data){
+                    if(DateTime.Parse(dados[5]) == Data){
                         resultado.Add(linha);
                     }
                 }

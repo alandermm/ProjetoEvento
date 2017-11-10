@@ -1,0 +1,8 @@
+C:\Users\01317235614\backend\ProjetoEvento\bin\Debug\netstandard2.0\ProjetoEvento.deps.json
+C:\Users\01317235614\backend\ProjetoEvento\bin\Debug\netstandard2.0\ProjetoEvento.dll
+C:\Users\01317235614\backend\ProjetoEvento\bin\Debug\netstandard2.0\ProjetoEvento.pdb
+C:\Users\01317235614\backend\ProjetoEvento\obj\Debug\netstandard2.0\ProjetoEvento.csproj.CoreCompileInputs.cache
+C:\Users\01317235614\backend\ProjetoEvento\obj\Debug\netstandard2.0\ProjetoEvento.AssemblyInfoInputs.cache
+C:\Users\01317235614\backend\ProjetoEvento\obj\Debug\netstandard2.0\ProjetoEvento.AssemblyInfo.cs
+C:\Users\01317235614\backend\ProjetoEvento\obj\Debug\netstandard2.0\ProjetoEvento.dll
+C:\Users\01317235614\backend\ProjetoEvento\obj\Debug\netstandard2.0\ProjetoEvento.pdb
