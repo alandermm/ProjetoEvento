@@ -1,48 +1,47 @@
 using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Text;
-
+using System.Collections.Generic;
 namespace ProjetoEvento.ClassePai.ClassesFilhas
 {
-    public class Teatro : Evento
+    public class Cinema : Evento
     {
-        public string[] Elenco {get; set;}
-        public string Diretor {get; set;}
+        public List<DateTime> Sessoes {get; set;}
+        string Genero {get; set;}
 
-        public Teatro(){
+        public Cinema(){
 
         }
 
-        public Teatro(string Titulo, string Local, int Lotacao, string Duracao, int Classificacao, DateTime Data, string[] Elenco, string Diretor){
+        public Cinema(string Titulo, string Local, int Lotacao, string Duracao, int Classificacao, DateTime Data, List<DateTime> Sessoes, string Genero){
             base.Titulo = Titulo;
             base.Local = Local;
             base.Lotacao = Lotacao;
             base.Duracao = Duracao;
             base.Classificacao = Classificacao;
             base.Data = Data;
-            this.Elenco = Elenco;
-            this.Diretor = Diretor;
+            this.Sessoes = Sessoes;
+            this.Genero = Genero;
         }
 
         public override bool Cadastrar(){
             bool efetuado = false;
             StreamWriter arquivo = null;
-            string elenco = "";
-            foreach (var integrante in Elenco)
+            string sessao = "";
+            foreach (var evento in Sessoes)
             {
-                elenco += integrante + "|";
+                sessao += evento + "|";
             }
-            elenco.Substring(0, Elenco.Length-1);
+            sessao.Substring(0, Sessoes.Count-1);
             try{
-                arquivo = new StreamWriter("teatro.csv", true);
+                arquivo = new StreamWriter("cinema.csv", true);
                 arquivo.WriteLine(
                     this.Titulo+";"+
                     this.Local+";"+
                     this.Duracao+";"+
                     this.Data+";"+
-                    elenco+";"+
-                    this.Diretor+";"+
+                    sessao+";"+
+                    this.Genero+";"+
                     this.Lotacao+";"+
                     this.Classificacao
                 );
@@ -59,7 +58,7 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
             string resultado = "Título não encontrado";
             StreamReader ler = null;
             try{
-                ler = new StreamReader("teatro.csv", Encoding.Default);
+                ler = new StreamReader("cinema.csv", Encoding.Default);
                 string linha = "";
                 while((linha=ler.ReadLine()) != null){
                     string[] dados = linha.Split(';');
@@ -81,7 +80,7 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
             //resultado.Add("Não tem nenhum evento para esta data");
             StreamReader ler = null;
             try{
-                ler = new StreamReader("teatro.csv", Encoding.Default);
+                ler = new StreamReader("cinema.csv", Encoding.Default);
                 string linha = "";
                 while((linha = ler.ReadLine()) != null){
                     string[] dados = linha.Split(';');
@@ -100,18 +99,18 @@ namespace ProjetoEvento.ClassePai.ClassesFilhas
             return resultado;
         }
 
-        public List<string> PesquisarIntegrante(string Integrante){
+        public List<string> PesquisarSessao(string Sessao){
             //string resultado = "Elenco não encontrado";
             List<string> resultado = new List<string>();
             StreamReader ler = null;
             try{
-                ler = new StreamReader("teatro.csv", Encoding.Default);
+                ler = new StreamReader("cinema.csv", Encoding.Default);
                 string linha = "";
                 while((linha=ler.ReadLine()) != null){
                     string[] dados = linha.Split(';');
-                    string[] elenco = dados[4].Split('-');
-                    foreach(string integ in elenco){
-                        if(integ == Integrante){
+                    string[] sessoes = dados[4].Split('-');
+                    foreach(string evento in sessoes){
+                        if(evento == Sessao){
                             resultado.Add(linha);
                             break;
                         }
